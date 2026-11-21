@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiniStore | Online Shopping</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="navbar">
+    <a href="#" class="logo" onclick="showHome()">
+        <span>Mini</span>Store.
+    </a>
+
+    <nav>
+        <a href="#" onclick="showHome()">Home</a>
+        <a href="#products" onclick="showHome()">Products</a>
+    </nav>
+
+    <button class="cart-button" onclick="openCart()">
+        🛒 Cart <span id="cart-count">0</span>
+    </button>
+</header>
+
+<main>
+
+    <!-- HOMEPAGE -->
+    <section id="home-page">
+
+        <section class="hero">
+            <div class="hero-content">
+                <span class="eyebrow">WELCOME TO MINISTORE</span>
+                <h1>Everything you need,<br>all in one place.</h1>
+                <p>Discover quality products at affordable prices.
+                   Shop conveniently and enjoy a simple shopping experience.</p>
+                <button class="primary-btn" onclick="scrollToProducts()">
+                    Shop Now →
+                </button>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1607082349566-187342175e2f?w=900"
+                     alt="Shopping collection">
+            </div>
+        </section>
+
+        <section class="products-section" id="products">
+
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">OUR COLLECTION</span>
+                    <h2>Explore Products</h2>
+                    <p>Find something you love.</p>
+                </div>
+                <span id="product-total" class="product-total"></span>
+            </div>
+
+            <div class="filter-area">
+                <input type="search" id="search-input"
+                       placeholder="Search products..."
+                       aria-label="Search products">
+
+                <select id="category-filter" aria-label="Filter category">
+                    <option value="All">All Categories</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Fashion">Fashion</option>
+                    <option value="Home">Home & Living</option>
+                    <option value="Accessories">Accessories</option>
+                </select>
+            </div>
+
+            <div id="product-grid" class="product-grid"></div>
+
+            <div id="no-products" class="empty-state hidden">
+                <h3>No products found</h3>
+                <p>Try another search or category.</p>
+            </div>
+
+        </section>
+    </section>
+
+    <!-- PRODUCT DETAILS MODAL -->
+    <div id="product-modal" class="modal hidden">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeProductDetails()">×</button>
+            <div id="product-details"></div>
+        </div>
+    </div>
+
+    <!-- SHOPPING CART SIDEBAR -->
+    <div id="cart-overlay" class="overlay hidden" onclick="closeCart()"></div>
+
+    <aside id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h2>Shopping Cart</h2>
+            <button class="close-btn" onclick="closeCart()">×</button>
+        </div>
+
+        <div id="cart-items" class="cart-items"></div>
+
+        <div class="cart-footer">
+            <div class="total-row">
+                <span>Subtotal</span>
+                <strong id="cart-subtotal">KES 0</strong>
+            </div>
+            <p class="shipping-note">Delivery charges calculated separately.</p>
+            <button class="primary-btn full-btn" onclick="goToCheckout()">
+                Proceed to Checkout
+            </button>
+            <button class="secondary-btn full-btn" onclick="closeCart()">
+                Continue Shopping
+            </button>
+        </div>
+    </aside>
+
+    <!-- CHECKOUT PAGE -->
+    <section id="checkout-page" class="checkout-page hidden">
+
+        <button class="back-btn" onclick="showHome()">← Continue Shopping</button>
+
+        <div class="section-heading">
+            <div>
+                <span class="eyebrow">ALMOST THERE</span>
+                <h2>Checkout</h2>
+                <p>Enter your details to complete your order.</p>
+            </div>
+        </div>
+
+        <div class="checkout-layout">
+
+            <form id="checkout-form" class="checkout-form">
+
+                <h3>Customer Information</h3>
+
+                <label for="customer-name">Full Name *</label>
+                <input type="text" id="customer-name"
+                       placeholder="Enter your full name" required minlength="2">
+
+                <label for="customer-email">Email Address *</label>
+                <input type="email" id="customer-email"
+                       placeholder="example@email.com" required>
+
+                <label for="customer-phone">Phone Number *</label>
+                <input type="tel" id="customer-phone"
+                       placeholder="e.g. 0712345678"
+                       pattern="(\+254|254|0)?[17][0-9]{8}"
+                       required>
+
+                <label for="customer-address">Delivery Address *</label>
+                <textarea id="customer-address"
+                          placeholder="Enter your delivery address"
+                          rows="3" required></textarea>
+
+                <label for="customer-city">Town / City *</label>
+                <input type="text" id="customer-city"
+                       placeholder="Enter your town or city" required>
+
+                <label for="payment-method">Payment Method</label>
+                <select id="payment-method">
+                    <option value="Cash on Delivery">Cash on Delivery</option>
+                    <option value="M-Pesa (Demo)">M-Pesa (Demo)</option>
+                    <option value="Card (Demo)">Card (Demo)</option>
+                </select>
+
+                <p class="demo-note">
+                    This is a demonstration application. No actual payment
+                    will be processed.
+                </p>
+
+                <button type="submit" class="primary-btn full-btn">
+                    Place Order
+                </button>
+
+            </form>
+
+            <div class="order-summary">
+                <h3>Your Order Summary</h3>
+                <div id="checkout-items"></div>
+
+                <div class="total-row">
+                    <span>Subtotal</span>
+                    <strong id="checkout-subtotal">KES 0</strong>
+                </div>
+
+                <div class="total-row">
+                    <span>Delivery</span>
+                    <strong>Free</strong>
+                </div>
+
+                <div class="total-row grand-total">
+                    <span>Total</span>
+                    <strong id="checkout-total">KES 0</strong>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ORDER CONFIRMATION -->
+    <section id="success-page" class="success-page hidden">
+        <div class="success-card">
+            <div class="success-icon">✓</div>
+            <span class="eyebrow">ORDER COMPLETED</span>
+            <h1>Thank You for Shopping!</h1>
+            <p>Your order has been successfully recorded.</p>
+
+            <div class="confirmation-details">
+                <p>Order Number</p>
+                <h2 id="order-number"></h2>
+                <p>Customer: <strong id="confirmed-customer"></strong></p>
+                <p>Order Total: <strong id="confirmed-total"></strong></p>
+                <p>Payment Method: <strong id="confirmed-payment"></strong></p>
+            </div>
+
+            <p class="demo-note">
+                This is a demo confirmation. No payment has been made.
+            </p>
+
+            <button class="primary-btn" onclick="showHome()">
+                Continue Shopping
+            </button>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <h3>MiniStore.</h3>
+    <p>Your convenient online shopping destination.</p>
+    <p>© 2026 MiniStore. Educational demonstration project.</p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
